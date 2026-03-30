@@ -9,6 +9,7 @@ import io.cucumber.java.en.When;
 public class LoginSteps {
 
     private final String platform = System.getProperty("platform", "android");
+    LoginPageAndroid loginPageAndroid = (LoginPageAndroid) PageProvider.getLoginPage(platform);
 
     @Given("the user is on the login screen")
     public void theUserIsOnTheLoginScreen() {
@@ -18,7 +19,7 @@ public class LoginSteps {
     @When("the user logs in with username {string} and password {string}")
     public void theUserLogsIn(String username, String password) {
         if (platform.equalsIgnoreCase("android")) {
-            ((LoginPageAndroid) PageProvider.getLoginPage(platform)).login(username, password);
+            loginPageAndroid.login(username, password);
         } else {
             ((LoginPageIOS) PageProvider.getLoginPage(platform)).login(username, password);
         }

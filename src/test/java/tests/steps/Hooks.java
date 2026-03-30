@@ -12,7 +12,8 @@ public class Hooks {
     @Before
     public void setUp(Scenario scenario) {
         String platform = System.getProperty("platform", "android");
-        String deviceName = System.getProperty("deviceName", "emulator-5554");
+//        String deviceName = System.getProperty("deviceName", "emulator-5554");
+        String deviceName = System.getProperty("deviceName", "RZ8R30XNHAV");
 
         DriverFactory.initDriver(platform, deviceName);
     }
