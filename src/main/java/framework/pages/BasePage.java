@@ -1,6 +1,7 @@
 package framework.pages;
 
 import framework.driver.DriverManager;
+import framework.utils.WaitUtils;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -20,20 +21,24 @@ public class BasePage {
     }
 
     protected WebElement find(By locator) {
-        return driver.findElement(locator);
+        return WaitUtils.waitForVisibility(locator);
     }
 
     protected void click(By locator) {
-        find(locator).click();
+        WaitUtils.waitForClickability(locator).click();
     }
 
     protected void type(By locator, String text) {
-        WebElement element = find(locator);
+        WebElement element = WaitUtils.waitForVisibility(locator);
         element.clear();
         element.sendKeys(text);
     }
 
     protected String getText(By locator) {
-        return find(locator).getText();
+        return WaitUtils.waitForVisibility(locator).getText();
+    }
+
+    protected boolean isDisplayed(By locator) {
+        return WaitUtils.isVisible(locator, 10);
     }
 }
