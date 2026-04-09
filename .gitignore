@@ -51,3 +51,6 @@ logs/
 
 ### Mac OS ###
 .DS_Store
+
+### Test Apps ###
+.apk

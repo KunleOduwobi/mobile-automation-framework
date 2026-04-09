@@ -4,7 +4,7 @@
         <parameter name="platform" value="android"/>
         <parameter name="deviceName" value="emulator-5554"/>
         <classes>
-            <class name="tests.runners.ParallelTestRunner"/>
+            <class name="tests.runners.TestRunner"/>
         </classes>
     </test>
 
@@ -12,7 +12,7 @@
         <parameter name="platform" value="ios"/>
         <parameter name="deviceName" value="iPhone 15"/>
         <classes>
-            <class name="tests.runners.ParallelTestRunner"/>
+            <class name="tests.runners.TestRunner"/>
         </classes>
     </test>
 </suite>

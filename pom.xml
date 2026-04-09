@@ -9,13 +9,18 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>25</maven.compiler.source>
-        <maven.compiler.target>25</maven.compiler.target>
+        <maven.compiler.source>26</maven.compiler.source>
+        <maven.compiler.target>26</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <cucumber.version>7.34.3</cucumber.version>
         <testng.version>7.12.0</testng.version>
         <appium.java.client.version>10.1.0</appium.java.client.version>
         <log4j.version>2.25.4</log4j.version>
+        <platform>android</platform>
+<!--        <deviceName>emulator-5554</deviceName>-->
+        <deviceName>RZ8R30XNHAV</deviceName>
+        <app.path>src/main/resources/base.apk"</app.path>
+        <appium.url>http://127.0.0.1:4723</appium.url>
     </properties>
 
     <dependencies>

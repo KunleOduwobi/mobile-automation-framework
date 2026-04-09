@@ -15,7 +15,10 @@ public class CapabilityFactory {
                     .setPlatformName("Android")
                     .setDeviceName(deviceName)
                     .setAutomationName("UiAutomator2")
-                    .setApp(System.getProperty("app.path"))
+                    .setApp(System.getProperty("src/main/resources/base.apk"))
+                    .setAppPackage("com.monefy.app.lite")
+                    .setAppActivity("com.monefy.activities.main.MainActivity_")
+                    .setAutoGrantPermissions(true)
                     .setNoReset(false)
                     .setNewCommandTimeout(Duration.ofSeconds(120));
         }
