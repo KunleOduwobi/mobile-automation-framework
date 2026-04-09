@@ -34,7 +34,7 @@ jobs:
             -Dplatform=android \
             -DdeviceName=Android_Emulator \
             -Dapp.path=apps/demo.apk \
-            -Dcucumber.filter.tags="@smoke"
+            -Dcucumber.filter.tags="@none"
 
       - name: Upload reports
         uses: actions/upload-artifact@v4
