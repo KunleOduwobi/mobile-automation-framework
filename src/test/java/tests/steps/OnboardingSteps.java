@@ -31,7 +31,7 @@ public class OnboardingSteps {
         if(platform.equalsIgnoreCase("android")){
             Assert.assertEquals(
                     offerPageAndroid.getPageTitle(),
-                    "Claim your one-time welcome offe");
+                    "Claim your one-time welcome offer");
         }
     }
 }
