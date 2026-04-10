@@ -5,3 +5,5 @@ Feature: Onboarding
     Given the user is on the onboarding screen
     When the user views the slides
     Then the user views the offer page
+    When the user closes the offer
+    Then the dashboard is displayed
