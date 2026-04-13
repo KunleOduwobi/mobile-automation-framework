@@ -1,10 +1,11 @@
 package framework.driver;
 
+import framework.config.ConfigManager;
+import framework.config.DeviceConfig;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.URL;
 
@@ -12,10 +13,10 @@ import java.net.URL;
 public class DriverFactory {
 
     // Creates a platform-specific driver session using generated capabilities and stores it in DriverManager.
-    public static void initDriver(String platform, String deviceName) {
+    public static void initDriver(String platform, DeviceConfig deviceConfig) {
         try {
-            URL appiumServerUrl = new URL(System.getProperty("appium.url", "http://127.0.0.1:4723"));
-            var options = CapabilityFactory.getOptions(platform, deviceName);
+            URL appiumServerUrl = new URL(ConfigManager.getAppiumUrl());
+            var options = CapabilityFactory.getOptions(platform, deviceConfig);
 
             AppiumDriver driver;
             if (platform.equalsIgnoreCase("android")) {
