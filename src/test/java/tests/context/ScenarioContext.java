@@ -2,13 +2,13 @@ package tests.context;
 
 import framework.config.DeviceConfig;
 
+import java.net.URI;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ScenarioContext {
-//    Device assignment is done here
 
     private static final ThreadLocal<DeviceConfig> CURRENT_DEVICE = new ThreadLocal<>();
     private static final ThreadLocal<Lock> CURRENT_LOCK = new ThreadLocal<>();
@@ -18,14 +18,18 @@ public class ScenarioContext {
     private ScenarioContext() {
     }
 
-    public static void assignDevice(String scenarioName, DeviceConfig deviceConfig) {
-        SCENARIO_DEVICES.put(scenarioName, deviceConfig);
+    public static String scenarioKey(URI uri, int line) {
+        return uri + ":" + line;
     }
 
-    public static DeviceConfig activateDevice(String scenarioName) {
-        DeviceConfig deviceConfig = SCENARIO_DEVICES.get(scenarioName);
+    public static void assignDevice(String scenarioId, DeviceConfig deviceConfig) {
+        SCENARIO_DEVICES.put(scenarioId, deviceConfig);
+    }
+
+    public static DeviceConfig activateDevice(String scenarioId) {
+        DeviceConfig deviceConfig = SCENARIO_DEVICES.get(scenarioId);
         if (deviceConfig == null) {
-            throw new IllegalStateException("No device is assigned for scenario: " + scenarioName);
+            throw new IllegalStateException("No device is assigned for scenario: " + scenarioId);
         }
 
         Lock lock = lockFor(deviceConfig);

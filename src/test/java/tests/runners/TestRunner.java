@@ -39,7 +39,10 @@ public class TestRunner extends AbstractTestNGCucumberTests {
 
         for (int i = 0; i < baseScenarios.length; i++) {
             PickleWrapper pickleWrapper = (PickleWrapper) baseScenarios[i][0];
-            ScenarioContext.assignDevice(pickleWrapper.getPickle().getName(), devices.get(i % devices.size()));
+            String scenarioKey = ScenarioContext.scenarioKey(
+                    pickleWrapper.getPickle().getUri(),
+                    pickleWrapper.getPickle().getLine());
+            ScenarioContext.assignDevice(scenarioKey, devices.get(i % devices.size()));
         }
 
         return baseScenarios;

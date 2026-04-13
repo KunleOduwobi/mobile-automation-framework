@@ -15,7 +15,8 @@ public class Hooks {
     @Before
     public void setUp(Scenario scenario) {
         String platform = ConfigManager.getPlatform();
-        DeviceConfig deviceConfig = ScenarioContext.activateDevice(scenario.getName());
+        String scenarioKey = ScenarioContext.scenarioKey(scenario.getUri(), scenario.getLine());
+        DeviceConfig deviceConfig = ScenarioContext.activateDevice(scenarioKey);
 
         DriverFactory.initDriver(platform, deviceConfig);
     }
@@ -27,7 +28,6 @@ public class Hooks {
             scenario.attach(screenshot, "image/png", scenario.getName());
         }
         DriverManager.quitDriver();
-//      makes the data provider shape back to what TestNG expects
         ScenarioContext.clear();
     }
 }

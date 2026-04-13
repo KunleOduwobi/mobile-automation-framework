@@ -65,7 +65,8 @@ src <br/>
 
 ✅ Parallel Execution<br>
 •	Thread-safe driver management using ThreadLocal<br>
-•	Enables running tests across multiple devices
+•	Supports running Android scenarios in parallel across multiple devices<br>
+•	Assigns each device its own UiAutomator2 `systemPort`
 
 ⸻
 
@@ -79,6 +80,14 @@ src <br/>
 •	Uses config.properties for default values<br>
 •	Supports runtime overrides via Maven:<br>
 `mvn test -Dplatform=android -DdeviceName=emulator-5554`
+
+⸻
+
+✅ Multi-Device Android Parallel Execution<br>
+•	Configure connected Android devices in `src/test/resources/config/config.properties` using `android.devices`<br>
+•	Format: `deviceName:systemPort,deviceName:systemPort`<br>
+•	Scenarios are distributed round-robin across configured devices<br>
+•	Each scenario gets a device-specific Appium session and UiAutomator2 `systemPort`
 
 ⸻
 
@@ -117,6 +126,25 @@ Run smoke tests<br>
 
 Run on specific platform<br>
 `mvn clean test -Dplatform=ios -DdeviceName="iPhone 15"`
+
+Run Android tests in parallel across two devices<br>
+`mvn clean test -Dplatform=android`
+
+Example `config.properties` for two Android devices<br>
+```properties
+platform=android
+android.devices=emulator-5554:8201,RZ8R30XNHAV:8202
+app.path=src/main/resources/base.apk
+appium.url=http://127.0.0.1:4723
+implicit.wait=10
+explicit.wait=20
+```
+
+Parallel execution notes<br>
+•	Both devices must be visible in `adb devices` before the run starts<br>
+•	Each Android device must have a unique `systemPort`<br>
+•	Run a single runner class so the same suite is not executed twice<br>
+•	If you add more devices, append them to `android.devices` with unused ports
 
 
 ⸻
@@ -171,7 +199,6 @@ Start Appium Server
 `appium`
 
 🚀 Future Improvements<br>
-•	Device matrix execution (multiple devices in parallel)<br>
 •	Integration with cloud providers (BrowserStack / Sauce Labs)<br>
 •	Enhanced reporting (Allure)<br>
 •	Test data management layer<br>
