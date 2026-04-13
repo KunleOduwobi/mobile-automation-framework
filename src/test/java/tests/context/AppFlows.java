@@ -5,6 +5,7 @@ import framework.pages.android.OfferPageAndroid;
 import framework.pages.android.OnboardingPageAndroid;
 import org.testng.Assert;
 
+// Encapsulates reusable user flows that multiple step-definition classes can share.
 public class AppFlows {
 
     private final String platform = System.getProperty("platform", "android");
@@ -13,6 +14,7 @@ public class AppFlows {
     private final OfferPageAndroid offerPageAndroid =
             (OfferPageAndroid) PageProvider.getOfferPage(platform);
 
+    // Completes the onboarding journey and verifies that the offer screen is displayed at the end.
     public void goToOfferScreen() {
         if (platform.equalsIgnoreCase("android")) {
             Assert.assertTrue(

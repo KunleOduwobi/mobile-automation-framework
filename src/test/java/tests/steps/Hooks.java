@@ -10,8 +10,10 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import tests.context.ScenarioContext;
 
+// Manages per-scenario setup and cleanup for driver sessions and device allocation.
 public class Hooks {
 
+    // Resolves the assigned device for this scenario and starts the Appium driver before execution.
     @Before
     public void setUp(Scenario scenario) {
         String platform = ConfigManager.getPlatform();
@@ -21,6 +23,7 @@ public class Hooks {
         DriverFactory.initDriver(platform, deviceConfig);
     }
 
+    // Captures failure evidence, closes the driver, and releases the device assignment after execution.
     @After
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {

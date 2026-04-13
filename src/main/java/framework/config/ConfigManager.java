@@ -13,9 +13,11 @@ public class ConfigManager {
     private static final String CONFIG_FILE = "config/config.properties";
     private static final Properties PROPERTIES = loadProperties();
 
+    // Prevents instantiation because this class only exposes static config helpers.
     private ConfigManager() {
     }
 
+    // Loads the framework properties file once from the test classpath.
     private static Properties loadProperties() {
         Properties properties = new Properties();
 
@@ -31,6 +33,7 @@ public class ConfigManager {
         }
     }
 
+    // Returns a required property value, allowing JVM system properties to override file values.
     public static String getProperty(String key) {
         String systemValue = System.getProperty(key);
         if (systemValue != null && !systemValue.isBlank()) {
@@ -45,6 +48,7 @@ public class ConfigManager {
         return propertyValue.trim();
     }
 
+    // Returns a property value with a fallback default when no override or file value exists.
     public static String getProperty(String key, String defaultValue) {
         String systemValue = System.getProperty(key);
         if (systemValue != null && !systemValue.isBlank()) {
@@ -55,30 +59,37 @@ public class ConfigManager {
         return propertyValue == null || propertyValue.isBlank() ? defaultValue : propertyValue.trim();
     }
 
+    // Reads a required property and converts it to an integer.
     public static int getIntProperty(String key) {
         return Integer.parseInt(getProperty(key));
     }
 
+    // Reads an integer property and uses the provided default when the key is absent.
     public static int getIntProperty(String key, int defaultValue) {
         return Integer.parseInt(getProperty(key, String.valueOf(defaultValue)));
     }
 
+    // Reads a required property and converts it to a boolean.
     public static boolean getBooleanProperty(String key) {
         return Boolean.parseBoolean(getProperty(key));
     }
 
+    // Reads a boolean property and uses the provided default when the key is absent.
     public static boolean getBooleanProperty(String key, boolean defaultValue) {
         return Boolean.parseBoolean(getProperty(key, String.valueOf(defaultValue)));
     }
 
+    // Returns the configured target platform for the test run.
     public static String getPlatform() {
         return getProperty("platform");
     }
 
+    // Returns the default device name for single-device execution.
     public static String getDeviceName() {
         return getProperty("deviceName");
     }
 
+    // Parses the Android device matrix used for parallel execution across multiple devices.
     public static List<DeviceConfig> getAndroidDevices() {
         String configuredDevices = getProperty("android.devices", "");
         if (!configuredDevices.isBlank()) {
@@ -92,23 +103,27 @@ public class ConfigManager {
         return List.of(new DeviceConfig(getDeviceName(), getIntProperty("android.systemPort", 8201)));
     }
 
+    // Returns the configured application path passed to Appium.
     public static String getAppPath() {
         return getProperty("app.path");
     }
 
+    // Returns the Appium server URL used when creating driver sessions.
     public static String getAppiumUrl() {
         return getProperty("appium.url");
     }
 
+    // Returns the default implicit wait timeout in seconds.
     public static int getImplicitWait() {
         return getIntProperty("implicit.wait");
     }
 
+    // Returns the default explicit wait timeout in seconds.
     public static int getExplicitWait() {
         return getIntProperty("explicit.wait");
     }
 
-//    parses android.devices entries in deviceName:systemPort format.
+    // Converts one android.devices entry in deviceName:systemPort format into a DeviceConfig.
     private static DeviceConfig parseDeviceConfig(String configEntry) {
         String[] parts = configEntry.split(":");
         if (parts.length != 2) {
