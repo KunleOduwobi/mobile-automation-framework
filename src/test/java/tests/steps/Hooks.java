@@ -1,23 +1,29 @@
 package tests.steps;
 
+import framework.config.ConfigManager;
+import framework.config.DeviceConfig;
 import framework.driver.DriverFactory;
 import framework.driver.DriverManager;
 import framework.utils.ScreenshotUtils;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import tests.context.ScenarioContext;
 
+// Manages per-scenario setup and cleanup for driver sessions and device allocation.
 public class Hooks {
 
+    // Resolves the assigned device for this scenario and starts the Appium driver before execution.
     @Before
     public void setUp(Scenario scenario) {
-        String platform = System.getProperty("platform", "android");
-//        String deviceName = System.getProperty("deviceName", "emulator-5554");
-        String deviceName = System.getProperty("deviceName", "RZ8R30XNHAV");
+        String platform = ConfigManager.getPlatform();
+        String scenarioKey = ScenarioContext.scenarioKey(scenario.getUri(), scenario.getLine());
+        DeviceConfig deviceConfig = ScenarioContext.activateDevice(scenarioKey);
 
-        DriverFactory.initDriver(platform, deviceName);
+        DriverFactory.initDriver(platform, deviceConfig);
     }
 
+    // Captures failure evidence, closes the driver, and releases the device assignment after execution.
     @After
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
@@ -25,5 +31,6 @@ public class Hooks {
             scenario.attach(screenshot, "image/png", scenario.getName());
         }
         DriverManager.quitDriver();
+        ScenarioContext.clear();
     }
 }

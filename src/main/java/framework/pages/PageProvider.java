@@ -1,5 +1,6 @@
 package framework.pages;
 
+import framework.pages.android.DashboardPageAndroid;
 import framework.pages.android.LoginPageAndroid;
 import framework.pages.android.OfferPageAndroid;
 import framework.pages.android.OnboardingPageAndroid;
@@ -30,6 +31,15 @@ public class PageProvider {
     public static Object getOfferPage(String platform) {
         if (platform.equalsIgnoreCase("android")) {
             return new OfferPageAndroid();
+        } else if (platform.equalsIgnoreCase("ios")) {
+
+        }
+        throw new IllegalArgumentException("Unsupported platform: " + platform);
+    }
+
+    public static Object getDashboardPage(String platform) {
+        if (platform.equalsIgnoreCase("android")) {
+            return new DashboardPageAndroid();
         } else if (platform.equalsIgnoreCase("ios")) {
 
         }
