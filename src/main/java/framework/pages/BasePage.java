@@ -3,6 +3,7 @@ package framework.pages;
 import framework.driver.DriverManager;
 import framework.utils.WaitUtils;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -40,5 +41,14 @@ public class BasePage {
 
     protected boolean isDisplayed(By locator) {
         return WaitUtils.isVisible(locator, 10);
+    }
+
+    // Scrolls a scrollable Android view until the requested text is visible on screen.
+    protected WebElement scrollToText(String text) {
+        String escapedText = text.replace("\"", "\\\"");
+
+        return driver.findElement(AppiumBy.androidUIAutomator(
+                "new UiScrollable(new UiSelector().scrollable(true))"
+                        + ".scrollIntoView(new UiSelector().text(\"" + escapedText + "\"))"));
     }
 }

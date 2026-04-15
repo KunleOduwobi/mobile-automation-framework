@@ -1,9 +1,6 @@
 package framework.pages;
 
-import framework.pages.android.DashboardPageAndroid;
-import framework.pages.android.LoginPageAndroid;
-import framework.pages.android.OfferPageAndroid;
-import framework.pages.android.OnboardingPageAndroid;
+import framework.pages.android.*;
 import framework.pages.ios.LoginPageIOS;
 
 // Returns the correct page object implementation for the platform the test is running on.
@@ -40,6 +37,15 @@ public class PageProvider {
     public static Object getDashboardPage(String platform) {
         if (platform.equalsIgnoreCase("android")) {
             return new DashboardPageAndroid();
+        } else if (platform.equalsIgnoreCase("ios")) {
+
+        }
+        throw new IllegalArgumentException("Unsupported platform: " + platform);
+    }
+
+    public static Object getNewIncomePage(String platform) {
+        if (platform.equalsIgnoreCase("android")) {
+            return new NewIncomePageAndroid();
         } else if (platform.equalsIgnoreCase("ios")) {
 
         }
