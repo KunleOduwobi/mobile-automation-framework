@@ -4,16 +4,23 @@ import framework.pages.PageProvider;
 import framework.pages.android.DashboardPageAndroid;
 import framework.pages.android.NewIncomePageAndroid;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
+import tests.context.AppFlows;
 
 public class EnterIncomeSteps {
 
     private final String platform = System.getProperty("platform", "android");
     private final DashboardPageAndroid dashboardPageAndroid = (DashboardPageAndroid) PageProvider.getDashboardPage(platform);
     private final NewIncomePageAndroid newIncomePageAndroid = (NewIncomePageAndroid) PageProvider.getNewIncomePage(platform);
+    private final AppFlows appFlows = new AppFlows();
 
+    @Given("the user is on the dashboard screen")
+    public void theUserIsOnTheDashboardScreen(){
+        appFlows.goToDashboardScreen();
+    }
     @When("the user clicks the add income button")
     public void theUserClicksTheAddIncomeButton() {
         if (platform.equalsIgnoreCase("android")) {

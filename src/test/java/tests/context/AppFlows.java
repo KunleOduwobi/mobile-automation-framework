@@ -26,4 +26,11 @@ public class AppFlows {
                     "Claim your one-time welcome offer");
         }
     }
+
+    public void goToDashboardScreen() {
+        goToOfferScreen();
+        if (platform.equalsIgnoreCase("android")) {
+            offerPageAndroid.clickCloseOfferButton();
+        }
+    }
 }

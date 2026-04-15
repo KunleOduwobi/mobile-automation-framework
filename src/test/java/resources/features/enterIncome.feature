@@ -2,9 +2,7 @@ Feature: Enter Income
 
   @smoke @android @monefy @income
   Scenario Outline: Verify income amount is updated correctly
-    Given the user is on the offer screen
-    When the user closes the offer
-    Then the dashboard is displayed
+    Given the user is on the dashboard screen
     When the user clicks the add income button
     Then the new income screen is displayed
     When the user enters an income amount of "<amount>"
